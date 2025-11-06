@@ -2,7 +2,9 @@ use crate::models::SAPEvent;
 use anyhow::Result;
 
 pub async fn fetch_events(url: &str, cookie: &str) -> Result<Vec<SAPEvent>> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder()
+        .danger_accept_invalid_certs(true)
+        .build()?;
 
     let response = client
         .get(url)
