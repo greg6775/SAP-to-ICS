@@ -4,6 +4,7 @@ use anyhow::Result;
 pub async fn fetch_events(url: &str, cookie: &str) -> Result<Vec<SAPEvent>> {
     let client = reqwest::Client::builder()
         .danger_accept_invalid_certs(true)
+        .timeout(std::time::Duration::from_secs(30))
         .build()?;
 
     let response = client
